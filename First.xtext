@@ -1,0 +1,41 @@
+grammar org.xtext.project.First with org.eclipse.xtext.common.Terminals
+
+generate first "http://www.xtext.org/project/First"
+
+VoiceAssistant: 
+	agents += Agent*
+;
+
+@Override terminal ID: ('a'..'z'|'A'..'Z'|'_'|'-'|'/')*;
+
+Agent:
+	'agent' name=ID '{' agentInside=AgentInside '}'
+;
+
+AgentInside:
+	settings=AgentSettings (intents+=Intent | enities+=Entity)*
+;
+
+AgentSettings:
+	'parent' parent=ID
+	'language' languageCode=ID
+	'time_zone' timeZone=ID
+;
+
+Intent:
+	'intent' name=ID '{' settings=IntentSettings '}'
+;
+
+IntentSettings: {IntentSettings}
+	'training' trainings+=STRING*
+	parameters+=IntentParam*
+	'response' messages+=STRING*
+;
+
+IntentParam:
+	'parameter' name=ID mandatory='mandatory'? prompts+=STRING*	
+;
+
+Entity:
+	'entity'
+;
