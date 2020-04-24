@@ -36,7 +36,7 @@ class FirstGenerator extends AbstractGenerator {
 			import os
 			import dialogflow_v2 as dialogflow
 						
-			os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = '«  if(place === 'agent') '' else '../'  »dial-py.service.json'
+			os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = 'Â«  if(place === 'agent') '' else '../'  Â»dial-py.service.json'
 		'''
 	}
 	
@@ -54,22 +54,22 @@ class FirstGenerator extends AbstractGenerator {
 	
 	def CharSequence compile(Agent agent) {
 		'''
-			«  defaultNeed('agent')  »
+			Â«  defaultNeed('agent')  Â»
 			
 			client = dialogflow.AgentsClient()
 			
 			agent = dialogflow.types.Agent(
-				parent='projects/«  agent.agentInside.parameters.parent  »',
-				display_name='«  agent.name  »',
-				default_language_code='«  agent.agentInside.getParameters.languageCode  »',
-				time_zone='«  agent.agentInside.getParameters.timeZone  »'
+				parent='projects/Â«  agent.agentInside.parameters.parent  Â»',
+				display_name='Â«  agent.name  Â»',
+				default_language_code='Â«  agent.agentInside.getParameters.languageCode  Â»',
+				time_zone='Â«  agent.agentInside.getParameters.timeZone  Â»'
 			)
 			
 			response = client.set_agent(agent=agent)
 			
-			«FOR i : agent.getAllIntents »
-				«  i.compile(agent.getProjectPath)  »
-			«ENDFOR»
+			Â«FOR i : agent.getAllIntents Â»
+				Â«  i.compile(agent.getProjectPath)  Â»
+			Â«ENDFORÂ»
 			
 		'''
 	}
@@ -77,12 +77,12 @@ class FirstGenerator extends AbstractGenerator {
 	def CharSequence compile(Intent intent, String project_path) {
 		'''
 		client = dialogflow.IntentsClient()
-		parent = client.project_agent_path('«  project_path  »')
+		parent = client.project_agent_path('Â«  project_path  Â»')
 		
-		training_phrases_parts = «  intent.settings.trainings.convertToStringList  »
-		message_texts = «  intent.settings.messages.convertToStringList  »
+		training_phrases_parts = Â«  intent.settings.trainings.convertToStringList  Â»
+		message_texts = Â«  intent.settings.messages.convertToStringList  Â»
 		
-		parameters = «  intent.settings.getAlma  »
+		parameters = Â«  intent.settings.getAlma  Â»
 		
 		training_phrases = []
 		for training_phrases_part in training_phrases_parts:
@@ -94,7 +94,7 @@ class FirstGenerator extends AbstractGenerator {
 		message = dialogflow.types.Intent.Message(text=text)
 		
 		intent = dialogflow.types.Intent(
-		        display_name='«  intent.name  »',
+		        display_name='Â«  intent.name  Â»',
 		        training_phrases=training_phrases,
 		        messages=[message])
 		        
