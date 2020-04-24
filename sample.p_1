@@ -1,0 +1,34 @@
+agent HotelReservation {
+	parent dialogflow-python
+	language en
+	time_zone Europe/Copenhagen
+	
+	intent NameRecognition {
+		training
+			"My name is Akos" "I'm Peter"
+		parameter given-name mandatory "What is your name?"
+		parameter date mandatory "Which date would be perfect for you?"
+		response
+			"Thank you!"
+	}
+	
+	intent TimeRecognition {
+		training
+			"at 6 o'clock pm" "from 8:00" "at noon"
+		response
+			"We've set it"
+	}
+}
+
+agent NewAgent {
+	parent dialogflow-python
+	language da
+	time_zone Europe/Copenhagen
+	
+	intent Valami {
+		training
+			"eper" "banan"
+		response
+			"ttt" "eee"
+	}
+}
